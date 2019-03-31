@@ -1,0 +1,19 @@
+data1 <- read.csv("/Users/phoebemarsonsmith/Drive/3rd Year/BIOC0023/Data/Beta diversity even/unweighted_unifrac_pc copy.csv")
+data2 <- data1[c(1:20),c("Diet_Type","Sample_person", "Observed.OTUs.person", "Observed.OTUs.diet", "PCA1","PCA2")]
+head(data2)
+
+
+PCA1 <- data2[c("PCA1")]
+PCA2 <- data2[c("PCA2")]
+
+library(plotly)
+
+
+data2$Sample_person <-as.factor(c('Tom Mineev', 'Parvej', 'Phoebe Marson Smith', 'Siyuan Ji','Stefanie Santamaria'))
+
+
+plot_ly(data2, x = ~PCA1, y = ~PCA2, type = 'scatter', mode = 'markers', color = ~Sample_person, colors = 'Paired',
+             marker = list(size = ~data2$Observed.OTUs.person/50, opacity = 0.75), sizes = c(0.5, 5)) %>%
+  layout(title = 'Principal Coordinate Analysis',
+         xaxis = list(showgrid = FALSE),
+         yaxis = list(showgrid = FALSE))
